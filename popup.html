@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      width: 260px;
+      padding: 0;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #e7ebf0;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    }
+    .popup-card {
+      background: #fff;
+      border-radius: 18px;
+      margin: 16px;
+      padding: 16px 16px 8px 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      font-size: 1.2em;
+      font-weight: 600;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+    .status-dot {
+      width: 18px;
+      height: 18px;
+      background: #22c55e;
+      border-radius: 50%;
+      margin-left: 8px;
+      transition: background 0.3s;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .label {
+      font-size: 13px;
+      color: #222;
+      font-weight: 500;
+    }
+    select {
+      font-size: 14px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      margin-left: 8px;
+    }
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 38px;
+      height: 22px;
+      margin-left: 8px;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #e5e7eb;
+      border-radius: 22px;
+      transition: .3s;
+    }
+    .toggle-switch input:checked + .slider {
+      background: #2563eb;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: .3s;
+    }
+    .toggle-switch input:checked + .slider:before {
+      transform: translateX(16px);
+    }
+    .sync-btn {
+      width: 100%;
+      background: #2563eb;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 0;
+      margin: 8px 0 4px 0;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(37,99,235,0.08);
+    }
+    .sync-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: #fff;
+    }
+    .status {
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .divider {
+      border-bottom: 1px solid #e5e7eb;
+      margin: 8px 0;
+    }
+    #blockListContainer {
+      margin-top: 8px;
+    }
+    #blockListContainer h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 8px 0 4px 0;
+      color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    #blockList {
+      max-height: 180px;
+      overflow-y: auto;
+      padding-left: 0;
+      margin: 0;
+      list-style: none;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      background: #f8fafc;
+    }
+    #blockList li {
+      display: flex;
+      align-items: center;
+      padding: 4px 8px;
+      font-size: 14px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    #blockList li:last-child {
+      border-bottom: none;
+    }
+    .avatar {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      margin-right: 8px;
+      background: #e5e7eb;
+      object-fit: cover;
+    }
+    .radio {
+      margin-right: 8px;
+    }
+    #pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 8px;
+      gap: 8px;
+    }
+    #prevPage, #nextPage {
+      background: #f3f4f6;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      color: #222;
+      font-size: 13px;
+      padding: 2px 16px;
+      cursor: pointer;
+      min-width: 56px;
+      transition: background .2s;
+    }
+    #prevPage:disabled, #nextPage:disabled {
+      background: #e5e7eb;
+      color: #aaa;
+      cursor: not-allowed;
+    }
+    #pageInfo {
+      font-size: 13px;
+      color: #222;
+      min-width: 60px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="popup-card">
+    <div class="header">
+      Pixiv Blocker <span class="status-dot"></span>
+    </div>
+    <div class="row">
+      <span class="label">Mode:</span>
+      <select id="mode">
+        <option value="username">Username</option>
+        <option value="userid">User ID</option>
+      </select>
+      <span style="flex:1"></span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="toggleEnabled" checked />
+        <span class="slider"></span>
+      </label>
+    </div>
+    <button id="syncBtn" class="sync-btn">
+      <svg viewBox="0 0 20 20"><path d="M10 2a8 8 0 1 1-7.94 9.03.75.75 0 0 1 1.48-.26A6.5 6.5 0 1 0 10 3.5V6a.75.75 0 0 1-1.5 0V2.75A.75.75 0 0 1 9.25 2H10z"/></svg>
+      Sync Block List
+    </button>
+    <div id="status" class="status">Not synced yet</div>
+    <div class="divider"></div>
+    <div id="blockListContainer">
+      <h4>Blocked Users <span style="font-size:13px;background:#e5e7eb;padding:2px 8px;border-radius:12px;color:#444;">56</span></h4>
+      <ul id="blockList"></ul>
+      <div id="pagination">
+        <button id="prevPage">Prev</button>
+        <span id="pageInfo"></span>
+        <button id="nextPage">Next</button>
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
