@@ -1,0 +1,47 @@
+# Pixiv Blocker
+
+Pixiv Blocker is a browser extension that helps you manage and hide blocked users on Pixiv. It gets your blocked user list, hide content from such blocked users, and provides a modern, user-friendly popup interface with search and pagination.
+
+## Features
+- Sync your Pixiv block list with one click
+- Hide all content from blocked users automatically
+- Toggle extension on/off instantly
+- Search and filter blocked users in the popup
+- Paginated blocked user list (20 per page)
+- Choose to display by username or user ID
+- Modern, compact popup UI
+
+## How It Works
+- The extension fetches your block list from Pixiv using their API.
+- Blocked users are stored locally and used to hide their content on Pixiv pages.
+- The popup allows you to view, search, and filter your block list.
+- The extension can be enabled or disabled at any time.
+
+## Installation
+1. Download or clone this repository.
+2. Open Chrome and go to `chrome://extensions/`.
+3. Enable "Developer mode" (top right).
+4. Click "Load unpacked" and select this extension's folder.
+
+## Usage
+- Click the Pixiv Blocker icon in your Chrome toolbar.
+- Use the toggle to enable/disable blocking.
+- Click "Update Block List" to sync your block list from Pixiv.
+- Use the search bar to filter blocked users.
+- Use the pagination controls to browse the list.
+
+## Permissions
+- `storage`: To save your block list and settings.
+- `host_permissions`: To access Pixiv.net and hide blocked users.
+
+## Notes
+- You must be logged in to Pixiv for syncing to work.
+- The extension only hides users present in your Pixiv block list.
+
+## License
+
+This project is licensed under the MIT License.
+
+You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, as long as you include the original copyright notice and this permission notice in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
