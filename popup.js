@@ -4,6 +4,7 @@ const syncBtn = document.getElementById('syncBtn');
 const statusDiv = document.getElementById('status');
 const toggleEnabled = document.getElementById('toggleEnabled');
 const statusDot = document.querySelector('.status-dot');
+const searchBar = document.getElementById('searchBar');
 
 // Check if elements exist
 if (!modeSelect || !syncBtn || !statusDiv || !toggleEnabled) {
@@ -78,16 +79,27 @@ const blockCountBadge = document.querySelector('#blockListContainer h4 span');
 let blockedUsers = [];
 let currentPage = 1;
 const PAGE_SIZE = 20;
+let searchQuery = '';
 
 function renderBlockList() {
   if (!blockListEl) return;
   blockListEl.innerHTML = '';
+  // Filter users by search query
+  let filteredUsers = blockedUsers;
+  if (searchQuery.trim()) {
+    const q = searchQuery.trim().toLowerCase();
+    filteredUsers = blockedUsers.filter(user => {
+      const name = (user.userName || user.label || user.name || user.user_name || '').toLowerCase();
+      const id = (user.userId || user.user_id || '').toString();
+      return name.includes(q) || id.includes(q);
+    });
+  }
   const startIdx = (currentPage - 1) * PAGE_SIZE;
-  const endIdx = Math.min(startIdx + PAGE_SIZE, blockedUsers.length);
+  const endIdx = Math.min(startIdx + PAGE_SIZE, filteredUsers.length);
   // Determine display mode
   const mode = modeSelect ? modeSelect.value : 'username';
   for (let i = startIdx; i < endIdx; i++) {
-    const user = blockedUsers[i];
+    const user = filteredUsers[i];
     const li = document.createElement('li');
     if (mode === 'username') {
       li.textContent = user.userName || user.label || user.name || user.user_name || '(No username)';
@@ -97,12 +109,12 @@ function renderBlockList() {
     blockListEl.appendChild(li);
   }
   // Update pagination info
-  const totalPages = Math.max(1, Math.ceil(blockedUsers.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(filteredUsers.length / PAGE_SIZE));
   pageInfoEl.textContent = `Page ${currentPage} / ${totalPages}`;
   prevPageBtn.disabled = currentPage === 1;
   nextPageBtn.disabled = currentPage === totalPages;
   // Update blocked users count badge
-  if (blockCountBadge) blockCountBadge.textContent = blockedUsers.length;
+  if (blockCountBadge) blockCountBadge.textContent = filteredUsers.length;
 }
 
 function loadBlockedUsers() {
@@ -140,6 +152,14 @@ if (syncBtn) {
 // Re-render block list when mode changes
 if (modeSelect) {
   modeSelect.addEventListener('change', () => {
+    renderBlockList();
+  });
+}
+
+if (searchBar) {
+  searchBar.addEventListener('input', (e) => {
+    searchQuery = e.target.value;
+    currentPage = 1;
     renderBlockList();
   });
 }

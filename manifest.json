@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Pixiv Block Sync",
+  "name": "Pixiv Blocker",
   "version": "1.0",
   "permissions": ["storage"],
   "host_permissions": ["https://www.pixiv.net/*"],

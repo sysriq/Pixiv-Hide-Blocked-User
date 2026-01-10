@@ -14,8 +14,8 @@
     .popup-card {
       background: #fff;
       border-radius: 18px;
-      margin: 16px;
-      padding: 16px 16px 8px 16px;
+      margin: 8px;
+      padding: 8px 8px 4px 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     }
     .header {
@@ -214,12 +214,15 @@
     </div>
     <button id="syncBtn" class="sync-btn">
       <svg viewBox="0 0 20 20"><path d="M10 2a8 8 0 1 1-7.94 9.03.75.75 0 0 1 1.48-.26A6.5 6.5 0 1 0 10 3.5V6a.75.75 0 0 1-1.5 0V2.75A.75.75 0 0 1 9.25 2H10z"/></svg>
-      Sync Block List
+      Update Block List
     </button>
     <div id="status" class="status">Not synced yet</div>
     <div class="divider"></div>
     <div id="blockListContainer">
       <h4>Blocked Users <span style="font-size:13px;background:#e5e7eb;padding:2px 8px;border-radius:12px;color:#444;">56</span></h4>
+      <div class="row" style="margin-bottom:4px;">
+        <input id="searchBar" type="text" placeholder="Search blocked user..." style="width:100%;padding:6px 10px;border-radius:6px;border:1px solid #cbd5e1;font-size:14px;" />
+      </div>
       <ul id="blockList"></ul>
       <div id="pagination">
         <button id="prevPage">Prev</button>
