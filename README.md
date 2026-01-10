@@ -2,6 +2,9 @@
 
 Pixiv Blocker is a browser extension that helps you manage and hide blocked users on Pixiv. It gets your blocked user list, hide content from such blocked users, and provides a modern, user-friendly popup interface with search and pagination.
 
+<img width="252" height="425" alt="image" src="https://github.com/user-attachments/assets/6bf95d09-2338-48c1-ac8c-6f67ca4661e2" />
+
+
 ## Features
 - Sync your Pixiv block list with one click
 - Hide all content from blocked users automatically
