@@ -32,11 +32,15 @@ async function fetchPixivBlockedList() {
         ...item,
         userName: item.label // Always set userName to label
       }));
+      // Stop if no more items
+      if (!items.length) {
+        console.log('No more block_items returned, stopping sync.');
+        break;
+      }
       allBlockedUsers = allBlockedUsers.concat(items);
-      hasMore = data.body.has_more_blocks;
       offset += limit;
       // Small delay to prevent hitting rate limits if the list is huge
-      if (hasMore) await new Promise(r => setTimeout(r, 500));
+      await new Promise(r => setTimeout(r, 500));
     }
     // Save to storage
     return new Promise((resolve) => {

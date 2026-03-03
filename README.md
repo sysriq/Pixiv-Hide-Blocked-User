@@ -41,7 +41,7 @@ Pixiv Blocker is a browser extension that helps you manage and hide blocked user
 - You must be logged in to Pixiv for syncing to work.
 - The extension only hides users present in your Pixiv block list.
 
-## Issues (to be fixed)
-- There are some instance where a user is blocked but the extension doesn't hide the post from that user
-- The extension does not show the correct amount of blocked user
+## Issues
+- There are some instance where a user is blocked but the extension doesn't hide the post from that user, The extension does not show the correct amount of blocked user - FIXED
+--> For some reason, the pixiv API has a boolean to determine if it should keep calling the API to get more blocked users and it randomly set it to false even though there are still blocked users
 
