@@ -28,7 +28,7 @@ const applyHider = (root = document.body) => {
     const userId = user.userId || user.user_id;
     if (!userId) return;
     // Only search within the root node
-    const xpath = `.//li[.//a[@data-gtm-value="${userId}"]]`;
+    const xpath = `.//li[.//a[@data-gtm-value="${userId}"]] | .//div[@data-ga4-label="thumbnail" and .//a[@data-gtm-value="${userId}"]]`;
     const result = document.evaluate(
       xpath,
       root,
@@ -39,7 +39,9 @@ const applyHider = (root = document.body) => {
     for (let i = 0; i < result.snapshotLength; i++) {
       const node = result.snapshotItem(i);
       if (node && node.style.display !== 'none') {
-        node.style.display = 'none';
+        setTimeout(() => {
+          node.style.setProperty('display', 'none', 'important');
+        }, 200); // 200ms delay before hiding
       }
     }
   });
